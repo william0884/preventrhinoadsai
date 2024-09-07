@@ -41,9 +41,18 @@ export default function HomePage() {
           </button>
           {error && <p className="text-red-500">{error}</p>}
           {accident && (
-            <pre className="bg-gray-100 p-4 rounded overflow-auto max-w-full text-black">
-              {JSON.stringify(accident, null, 2)}
-            </pre>
+            <div className="flex flex-col items-center gap-4 w-full max-w-2xl">
+              <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-60 w-full text-black text-sm">
+                {JSON.stringify(accident, null, 2)}
+              </pre>
+              <img
+                src={accident.blob.url}
+                width={500}
+                height={500}
+                alt="Generated Image"
+                className="max-w-full h-auto"
+              />
+            </div>
           )}
         </div>
       </div>

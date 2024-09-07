@@ -1,4 +1,14 @@
 import { NextResponse } from 'next/server';
+import { HfInference } from "@huggingface/inference";
+import { put } from "@vercel/blob";
+
+interface BlobResponse {
+  url: string;
+  downloadUrl: string;
+  pathname: string;
+  contentType?: string;
+  contentDisposition?: string;
+}
 
 export interface AccidentApiResponse {
   help: string;
@@ -113,6 +123,9 @@ export interface VehicleRecord {
   TRAFFIC_CONTROL_DESC: string;
 }
 
+const hf = new HfInference(process.env.HF_ACCESS_TOKEN);
+
+
 export async function GET() {
   const baseUrl = 'https://discover.data.vic.gov.au/api/3/action/datastore_search';
   const resourceId = 'd48aa391-9f43-4c67-bd90-81192ff2e732';
@@ -169,7 +182,21 @@ export async function GET() {
         
         const sentence = `a vintage ad of ${carYearManuf} ${carMake} ${carModel} in a ${accidentType} accident on a ${dayOfWeek}. ${policeSentence} ${deathSentence} ${vehicleSentence} ${severitySentence}. ${personsSentence}. Text to reflect the image`;
 
-        return NextResponse.json({ sentence });
+        const imgCap = await hf.textToImage({
+          inputs: sentence,
+          model: "multimodalart/vintage-ads-flux",
+        });
+
+        const buff = Buffer.from(await imgCap.arrayBuffer());
+
+
+        const fileName = `${Date.now()}.png`;
+
+        const blob: BlobResponse = await put(fileName, buff, {
+          access: "public",
+        });
+
+        return NextResponse.json({ sentence, blob });
       } catch (error) {
         console.error('Error fetching car data:', error);
         return NextResponse.json({ error: 'Error fetching car data' }, { status: 500 });
