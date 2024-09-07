@@ -1,0 +1,848 @@
+{
+  "id": "7b0c8477-9d57-44be-8702-1ce93b45f7fc",
+  "prevId": "cfeacafa-04d9-47d4-8f64-3a36666def06",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.ACCIDENT": {
+      "name": "ACCIDENT",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ACCIDENT_DATE": {
+          "name": "ACCIDENT_DATE",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ACCIDENT_TIME": {
+          "name": "ACCIDENT_TIME",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ACCIDENT_TYPE": {
+          "name": "ACCIDENT_TYPE",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ACCIDENT_TYPE_DESC": {
+          "name": "ACCIDENT_TYPE_DESC",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DAY_OF_WEEK": {
+          "name": "DAY_OF_WEEK",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DAY_WEEK_DESC": {
+          "name": "DAY_WEEK_DESC",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DCA_CODE": {
+          "name": "DCA_CODE",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DCA_DESC": {
+          "name": "DCA_DESC",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LIGHT_CONDITION": {
+          "name": "LIGHT_CONDITION",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NODE_ID": {
+          "name": "NODE_ID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_VEHICLES": {
+          "name": "NO_OF_VEHICLES",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_PERSONS": {
+          "name": "NO_PERSONS",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_PERSONS_INJ_2": {
+          "name": "NO_PERSONS_INJ_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_PERSONS_INJ_3": {
+          "name": "NO_PERSONS_INJ_3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_PERSONS_KILLED": {
+          "name": "NO_PERSONS_KILLED",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_PERSONS_NOT_INJ": {
+          "name": "NO_PERSONS_NOT_INJ",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "POLICE_ATTEND": {
+          "name": "POLICE_ATTEND",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_GEOMETRY": {
+          "name": "ROAD_GEOMETRY",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_GEOMETRY_DESC": {
+          "name": "ROAD_GEOMETRY_DESC",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SEVERITY": {
+          "name": "SEVERITY",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SPEED_ZONE": {
+          "name": "SPEED_ZONE",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "RMA": {
+          "name": "RMA",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.ACCIDENT_EVENT": {
+      "name": "ACCIDENT_EVENT",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "EVENT_SEQ_NO": {
+          "name": "EVENT_SEQ_NO",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "EVENT_TYPE": {
+          "name": "EVENT_TYPE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "EVENT_TYPE_Description": {
+          "name": "EVENT_TYPE_Description",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_1_ID": {
+          "name": "VEHICLE_1_ID",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_1_COLL_PT": {
+          "name": "VEHICLE_1_COLL_PT",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_1_COLL_PT_Description": {
+          "name": "VEHICLE_1_COLL_PT_Description",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_2_ID": {
+          "name": "VEHICLE_2_ID",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_2_COLL_PT": {
+          "name": "VEHICLE_2_COLL_PT",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_2_COLL_PT_Description": {
+          "name": "VEHICLE_2_COLL_PT_Description",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PERSON_ID": {
+          "name": "PERSON_ID",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "OBJECT_TYPE": {
+          "name": "OBJECT_TYPE",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "OBJECT_TYPE_Desc": {
+          "name": "OBJECT_TYPE_Desc",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ACCIDENT_EVENT_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "ACCIDENT_EVENT_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "ACCIDENT_EVENT",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.ACCIDENT_LOCATION": {
+      "name": "ACCIDENT_LOCATION",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NODE_ID": {
+          "name": "NODE_ID",
+          "type": "varchar(70)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_ROUTE_1": {
+          "name": "ROAD_ROUTE_1",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_NAME": {
+          "name": "ROAD_NAME",
+          "type": "varchar(45)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_TYPE": {
+          "name": "ROAD_TYPE",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DISTANCE_LOCATION": {
+          "name": "DISTANCE_LOCATION",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DIRECTION_LOCATION": {
+          "name": "DIRECTION_LOCATION",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ACCIDENT_LOCATION_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "ACCIDENT_LOCATION_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "ACCIDENT_LOCATION",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.ATMOSPHERIC_COND": {
+      "name": "ATMOSPHERIC_COND",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ATMOSPH_COND": {
+          "name": "ATMOSPH_COND",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ATMOSPH_COND_SEQ": {
+          "name": "ATMOSPH_COND_SEQ",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ATMOSPH_COND_Desc": {
+          "name": "ATMOSPH_COND_Desc",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ATMOSPHERIC_COND_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "ATMOSPHERIC_COND_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "ATMOSPHERIC_COND",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.NODE": {
+      "name": "NODE",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NODE_ID": {
+          "name": "NODE_ID",
+          "type": "varchar(70)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NODE_TYPE": {
+          "name": "NODE_TYPE",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VICGRID94_X": {
+          "name": "VICGRID94_X",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VICGRID94_Y": {
+          "name": "VICGRID94_Y",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LGA_NAME": {
+          "name": "LGA_NAME",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEG_URBAN_NAME": {
+          "name": "DEG_URBAN_NAME",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LATITUDE": {
+          "name": "LATITUDE",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LONGITUDE": {
+          "name": "LONGITUDE",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "POSTCODE_CRASH": {
+          "name": "POSTCODE_CRASH",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "NODE_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "NODE_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "NODE",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.PERSON": {
+      "name": "PERSON",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PERSON_ID": {
+          "name": "PERSON_ID",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_ID": {
+          "name": "VEHICLE_ID",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SEX": {
+          "name": "SEX",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AGE_GROUP": {
+          "name": "AGE_GROUP",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "INJ_LEVEL": {
+          "name": "INJ_LEVEL",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "INJ_LEVEL_Desc": {
+          "name": "INJ_LEVEL_Desc",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SEATING_POSITION": {
+          "name": "SEATING_POSITION",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "HELMET_BELT_WORN": {
+          "name": "HELMET_BELT_WORN",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_USER_TYPE": {
+          "name": "ROAD_USER_TYPE",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_USER_TYPE_Desc": {
+          "name": "ROAD_USER_TYPE_Desc",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LICENCE_STATE": {
+          "name": "LICENCE_STATE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TAKEN_HOSPITAL": {
+          "name": "TAKEN_HOSPITAL",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "EJECTED_CODE": {
+          "name": "EJECTED_CODE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "PERSON_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "PERSON_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "PERSON",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.ROAD_SURFACE_COND": {
+      "name": "ROAD_SURFACE_COND",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SURFACE_COND": {
+          "name": "SURFACE_COND",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SURFACE_COND_Desc": {
+          "name": "SURFACE_COND_Desc",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SURFACE_COND_SEQ": {
+          "name": "SURFACE_COND_SEQ",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ROAD_SURFACE_COND_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "ROAD_SURFACE_COND_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "ROAD_SURFACE_COND",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.SUB_DCA": {
+      "name": "SUB_DCA",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SUB_DCA_CODE": {
+          "name": "SUB_DCA_CODE",
+          "type": "varchar(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SUB_DCA_CODE_Seq": {
+          "name": "SUB_DCA_CODE_Seq",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SUB_DCA_CODE_Desc": {
+          "name": "SUB_DCA_CODE_Desc",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "SUB_DCA_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "SUB_DCA_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "SUB_DCA",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.VEHICLE": {
+      "name": "VEHICLE",
+      "schema": "",
+      "columns": {
+        "ACCIDENT_NO": {
+          "name": "ACCIDENT_NO",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_ID": {
+          "name": "VEHICLE_ID",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_YEAR_MANUF": {
+          "name": "VEHICLE_YEAR_MANUF",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_DCA_CODE": {
+          "name": "VEHICLE_DCA_CODE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "INITIAL_DIRECTION": {
+          "name": "INITIAL_DIRECTION",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_SURFACE_TYPE": {
+          "name": "ROAD_SURFACE_TYPE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ROAD_SURFACE_TYPE_Desc": {
+          "name": "ROAD_SURFACE_TYPE_Desc",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "REG_STATE": {
+          "name": "REG_STATE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_BODY_STYLE": {
+          "name": "VEHICLE_BODY_STYLE",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_MAKE": {
+          "name": "VEHICLE_MAKE",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_MODEL": {
+          "name": "VEHICLE_MODEL",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_POWER": {
+          "name": "VEHICLE_POWER",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_TYPE": {
+          "name": "VEHICLE_TYPE",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_TYPE_Desc": {
+          "name": "VEHICLE_TYPE_Desc",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "VEHICLE_WEIGHT": {
+          "name": "VEHICLE_WEIGHT",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CONSTRUCTION_TYPE": {
+          "name": "CONSTRUCTION_TYPE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FUEL_TYPE": {
+          "name": "FUEL_TYPE",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_WHEELS": {
+          "name": "NO_OF_WHEELS",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_CYLINDERS": {
+          "name": "NO_OF_CYLINDERS",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_SEATS": {
+          "name": "NO_OF_SEATS",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_DOORS": {
+          "name": "NO_OF_DOORS",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_AXLES": {
+          "name": "NO_OF_AXLES",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NO_OF_PASSENGERS": {
+          "name": "NO_OF_PASSENGERS",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TOWED_AWAY_FLAG": {
+          "name": "TOWED_AWAY_FLAG",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TRAFFIC_CONTROL": {
+          "name": "TRAFFIC_CONTROL",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TRAFFIC_CONTROL_Desc": {
+          "name": "TRAFFIC_CONTROL_Desc",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "VEHICLE_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk": {
+          "name": "VEHICLE_ACCIDENT_NO_ACCIDENT_ACCIDENT_NO_fk",
+          "tableFrom": "VEHICLE",
+          "tableTo": "ACCIDENT",
+          "columnsFrom": [
+            "ACCIDENT_NO"
+          ],
+          "columnsTo": [
+            "ACCIDENT_NO"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

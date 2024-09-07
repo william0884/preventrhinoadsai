@@ -1,35 +1,50 @@
-import Link from "next/link";
+'use client';
+
+import React, { useState } from 'react';
+import { AccidentRecord } from '@/types/accident';
 
 export default function HomePage() {
+  const [accident, setAccident] = useState<AccidentRecord | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchAccident = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data: AccidentRecord = await response.json();
+      setAccident(data);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
+          Prevent Rhino Ads Ai
         </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
+        <div className="flex flex-col items-center gap-4">
+          <button
+            onClick={fetchAccident}
+            disabled={loading}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
           >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+            {loading ? 'Loading...' : 'Get Random Accident'}
+          </button>
+          {error && <p className="text-red-500">{error}</p>}
+          {accident && (
+            <pre className="bg-gray-100 p-4 rounded overflow-auto max-w-full text-black">
+              {JSON.stringify(accident, null, 2)}
+            </pre>
+          )}
         </div>
       </div>
     </main>

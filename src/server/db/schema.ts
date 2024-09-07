@@ -3,11 +3,12 @@
 
 import {
   pgTableCreator,
-  varchar,
+  text,
   pgTable,
-  date,
-  time,
+  varchar,
   integer,
+  primaryKey,
+  foreignKey,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -21,38 +22,36 @@ export const createTable = pgTableCreator((name) => `prevent-rhino-ads-ai_${name
 export const accident = pgTable(
   "ACCIDENT",
   {
- ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
- ACCIDENTDATE: date("ACCIDENTDATE"),
- ACCIDENTTIME: time("ACCIDENTTIME"),
- ACCIDENT_TYPE: integer("ACCIDENT_TYPE"),
- ACCIDENT_TYPE_DESCRIPTION: varchar("ACCIDENT_TYPE_DESCRIPTION", { length: 50 }),
- DAY_OF_WEEK: integer("DAY_OF_WEEK"),
- DAY_OF_WEEK_DESCRIPTION: varchar("DAY_OF_WEEK_DESCRIPTION", { length: 9 }),
- DCA_CODE: integer("DCA_CODE"),
- DCA_CODE_DESCRIPTION: varchar("DCA_CODE_DESCRIPTION", { length: 70 }),
- LIGHT_CONDITION: integer("LIGHT_CONDITION"),
- LIGHT_CONDITION_DESCRIPTION: varchar("LIGHT_CONDITION_DESCRIPTION", { length: 30 }),
- NODE_ID: varchar("NODE_ID", { length: 70 }),
- NO_OF_VEHICLES: integer("NO_OF_VEHICLES"),
- NO_PERSONS: integer("NO_PERSONS"),
- NO_PERSONS_INJ_2: integer("NO_PERSONS_INJ_2"),
- NO_PERSONS_INJ_3: integer("NO_PERSONS_INJ_3"),
- NO_PERSONS_KILLED: integer("NO_PERSONS_KILLED"),
- NO_PERSONS_NOT_INJ: integer("NO_PERSONS_NOT_INJ"),
- POLICE_ATTEND: integer("POLICE_ATTEND"),
- ROAD_GEOMETRY: integer("ROAD_GEOMETRY"),
- ROAD_GEOMETRY_DESCRIPTION: varchar("ROAD_GEOMETRY_DESCRIPTION", { length: 30 }),
- SEVERITY: integer("SEVERITY"),
- SPEED_ZONE: integer("SPEED_ZONE"),
- RMA: varchar("RMA", { length: 20 }),
-    
+    ACCIDENT_NO: text("ACCIDENT_NO").primaryKey(),
+    ACCIDENT_DATE: text("ACCIDENT_DATE"),
+    ACCIDENT_TIME: text("ACCIDENT_TIME"),
+    ACCIDENT_TYPE: text("ACCIDENT_TYPE"),
+    ACCIDENT_TYPE_DESC: text("ACCIDENT_TYPE_DESC"),
+    DAY_OF_WEEK: text("DAY_OF_WEEK"),
+    DAY_WEEK_DESC: text("DAY_WEEK_DESC"),
+    DCA_CODE: text("DCA_CODE"),
+    DCA_DESC: text("DCA_DESC"),
+    LIGHT_CONDITION: text("LIGHT_CONDITION"),
+    NODE_ID: text("NODE_ID"),
+    NO_OF_VEHICLES: text("NO_OF_VEHICLES"),
+    NO_PERSONS: text("NO_PERSONS"),
+    NO_PERSONS_INJ_2: text("NO_PERSONS_INJ_2"),
+    NO_PERSONS_INJ_3: text("NO_PERSONS_INJ_3"),
+    NO_PERSONS_KILLED: text("NO_PERSONS_KILLED"),
+    NO_PERSONS_NOT_INJ: text("NO_PERSONS_NOT_INJ"),
+    POLICE_ATTEND: text("POLICE_ATTEND"),
+    ROAD_GEOMETRY: text("ROAD_GEOMETRY"),
+    ROAD_GEOMETRY_DESC: text("ROAD_GEOMETRY_DESC"),
+    SEVERITY: text("SEVERITY"),
+    SPEED_ZONE: text("SPEED_ZONE"),
+    RMA: text("RMA"),
   },
 )
 
 export const accident_event = pgTable(
   "ACCIDENT_EVENT",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     EVENT_SEQ_NO: integer("EVENT_SEQ_NO"),
     EVENT_TYPE: varchar("EVENT_TYPE", { length: 1 }),
     EVENT_TYPE_Description: varchar("EVENT_TYPE_Description", { length: 40 }),
@@ -71,7 +70,7 @@ export const accident_event = pgTable(
 export const accident_location = pgTable(
   "ACCIDENT_LOCATION",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     NODE_ID: varchar("NODE_ID", { length: 70 }),
     ROAD_ROUTE_1: integer("ROAD_ROUTE_1"),
     ROAD_NAME: varchar("ROAD_NAME", { length: 45 }),
@@ -84,7 +83,7 @@ export const accident_location = pgTable(
 export const atmospheric_cond = pgTable(
   "ATMOSPHERIC_COND",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     ATMOSPH_COND: varchar("ATMOSPH_COND", { length: 1 }),
     ATMOSPH_COND_SEQ: integer("ATMOSPH_COND_SEQ"),
     ATMOSPH_COND_Desc: varchar("ATMOSPH_COND_Desc", { length: 12 }),
@@ -94,7 +93,7 @@ export const atmospheric_cond = pgTable(
 export const node = pgTable(
   "NODE",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     NODE_ID: varchar("NODE_ID", { length: 70 }),
     NODE_TYPE: integer("NODE_TYPE"),
     VICGRID94_X: integer("VICGRID94_X"),
@@ -103,13 +102,14 @@ export const node = pgTable(
     DEG_URBAN_NAME: varchar("DEG_URBAN_NAME", { length: 25 }),
     LATITUDE: integer("LATITUDE"),
     LONGITUDE: integer("LONGITUDE"),
+    POSTCODE_CRASH: integer("POSTCODE_CRASH"),
   },
 )
 
 export const person = pgTable(
   "PERSON",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     PERSON_ID: varchar("PERSON_ID", { length: 2 }),
     VEHICLE_ID: varchar("VEHICLE_ID", { length: 1 }),
     SEX: varchar("SEX", { length: 1 }),
@@ -124,12 +124,13 @@ export const person = pgTable(
     TAKEN_HOSPITAL: varchar("TAKEN_HOSPITAL", { length: 1 }),
     EJECTED_CODE: varchar("EJECTED_CODE", { length: 1 }),
   },
+  
 )
 
 export const vehicle = pgTable(
   "VEHICLE",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     VEHICLE_ID: varchar("VEHICLE_ID", { length: 1 }),
     VEHICLE_YEAR_MANUF: integer("VEHICLE_YEAR_MANUF"),
     VEHICLE_DCA_CODE: varchar("VEHICLE_DCA_CODE", { length: 1 }),
@@ -156,12 +157,13 @@ export const vehicle = pgTable(
     TRAFFIC_CONTROL: integer("TRAFFIC_CONTROL"),
     TRAFFIC_CONTROL_Desc: varchar("TRAFFIC_CONTROL_Desc", { length: 15 }),
   },
+
 )
 
 export const road_surface_cond = pgTable(
   "ROAD_SURFACE_COND",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     SURFACE_COND: varchar("SURFACE_COND", { length: 1 }),
     SURFACE_COND_Desc: varchar("SURFACE_COND_Desc", { length: 6 }),
     SURFACE_COND_SEQ: integer("SURFACE_COND_SEQ"),
@@ -171,7 +173,7 @@ export const road_surface_cond = pgTable(
 export const sub_dca = pgTable(
   "SUB_DCA",
   {
-    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).primaryKey(),
+    ACCIDENT_NO: varchar("ACCIDENT_NO", { length: 12 }).references(() => accident.ACCIDENT_NO),
     SUB_DCA_CODE: varchar("SUB_DCA_CODE", { length: 3 }),
     SUB_DCA_CODE_Seq: integer("SUB_DCA_CODE_Seq"),
     SUB_DCA_CODE_Desc: varchar("SUB_DCA_CODE_Desc", { length: 60 }),
