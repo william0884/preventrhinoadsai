@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-blue-500 border-gray-200 dark:bg-gray-900">
+    <nav className="bg-blue-500 border-gray-200 dark:bg-gray-900 sticky top-0 z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Prevent Rhino Ads AI</span>

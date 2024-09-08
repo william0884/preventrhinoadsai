@@ -1,60 +1,43 @@
-'use client';
-
-import React, { useState } from 'react';
-import { AccidentRecord } from '@/types/accident';
+'use client'
+import { useState, useEffect } from 'react';
 
 export default function HomePage() {
-  const [accident, setAccident] = useState<AccidentRecord | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const images = [
+    'https://dc907dsvybtiecmv.public.blob.vercel-storage.com/1725765896911-JaTWP9hjHYUw9MVG6hXd1Ft6HdD3P0.png?t=1725766144868',
+    // Add more image URLs here
+    'https://dc907dsvybtiecmv.public.blob.vercel-storage.com/1725764155441-UpFKtZmVSyBoMSr0TSsH5tElXRnNmI.png?t=1725767146173',
+    'https://dc907dsvybtiecmv.public.blob.vercel-storage.com/1725760530468-DGgwsqQJIIisqERPY9rpBQlcX1gYUj.png?t=1725767186386',
+  ];
 
-  const fetchAccident = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch('/api');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data: AccidentRecord = await response.json();
-      setAccident(data);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'An error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#4b0082] to-[#690060] text-white">
+      <div className="container flex flex-col items-center justify-center gap-6 px-4 text-center">
         <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
           Prevent Rhino Ads Ai
         </h1>
-        <div className="flex flex-col items-center gap-4">
-          <button
-            onClick={fetchAccident}
-            disabled={loading}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
-          >
-            {loading ? 'Loading. Please hold...' : 'Generate Accident Ad'}
-          </button>
-          {error && <p className="text-red-500">{error}</p>}
-          {accident && (
-            <div className="flex flex-col items-center gap-4 w-full max-w-2xl">
-              <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-80 w-full text-black text-sm whitespace-pre-wrap">
-                {accident.sentence}
-              </pre>
-              <img
-                src={accident.blob.url}
-                width={500}
-                height={500}
-                alt="Generated Image"
-                className="max-w-full h-auto"
-              />
-            </div>
-          )}
-        </div>
+
+        <p className='text-white text-2xl'>Do you want ads that vibe with your vintage aesthetic?</p>
+        <p className='text-white text-xl'>You can generate your personalised vintage theme ads!</p>
+        <p className='text-white text-xl'>Here is an example we prepared eariler:</p>
+        <img
+          src={images[currentImageIndex]}
+          width={500}
+          height={500}
+          alt={`Generated Image ${currentImageIndex + 1}`}
+          className="max-w-full h-auto"
+        />
+
+        <p className='text-white text-xl'>Created with <a className='text-blue-300' href="https://data.gov.au/data/dataset/vic-crash-data-2021-2022">Victoria Public Crash Data</a></p>
       </div>
     </main>
   );
