@@ -37,7 +37,7 @@ export default function HomePage() {
           className="max-w-full h-auto"
         />
 
-        <p className='text-white text-xl'>Created with <a className='text-blue-300' href="https://data.gov.au/data/dataset/vic-crash-data-2021-2022">Victoria Public Crash Data</a></p>
+        <p className='text-white text-xl'>Created with <a className='text-blue-300' href="https://discover.data.vic.gov.au/dataset/victoria-road-crash-data">Victoria Public Crash Data</a></p>
       </div>
     </main>
   );
