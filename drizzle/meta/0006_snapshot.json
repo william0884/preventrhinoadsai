@@ -1,0 +1,56 @@
+{
+  "id": "f194b945-89e5-4229-a18c-068bf7e23c4c",
+  "prevId": "2afbd3b3-47f2-4ab9-948c-b826cd3ab87a",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.accidentId": {
+      "name": "accidentId",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "defaultId": {
+          "name": "defaultId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sentence": {
+          "name": "sentence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "imgdescribe": {
+          "name": "imgdescribe",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

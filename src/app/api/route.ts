@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 import { HfInference } from "@huggingface/inference";
 import { put } from "@vercel/blob";
+import { auth } from '@clerk/nextjs/server'
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { accidentAd } from "../../server/db/schema";
+
+
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle(sql);
 
 interface BlobResponse {
   url: string;
@@ -127,6 +135,8 @@ const hf = new HfInference(process.env.HF_ACCESS_TOKEN);
 
 
 export async function GET() {
+  const { userId } = auth()
+
   const baseUrl = 'https://discover.data.vic.gov.au/api/3/action/datastore_search';
   const resourceId = 'd48aa391-9f43-4c67-bd90-81192ff2e732';
   const totalRecords = 171099;
@@ -180,7 +190,7 @@ export async function GET() {
         const NO_PERSONS = parseInt(record.NO_PERSONS ?? '0')
         const personsSentence = NO_PERSONS === 1 ? '1 person are injured.' : `${NO_PERSONS} people are injured.`
         
-        const sentence = `a vintage ad of ${carYearManuf} ${carMake} ${carModel} in a ${accidentType} accident on a ${dayOfWeek}. ${policeSentence} ${deathSentence} ${vehicleSentence} ${severitySentence}. ${personsSentence}. Text to reflect the image`;
+        const sentence = `a vintage ad of ${carYearManuf} ${carMake} ${carModel} in a ${accidentType} accident on a ${dayOfWeek}. ${policeSentence} ${deathSentence} ${vehicleSentence} ${severitySentence}. ${personsSentence}. Display text: '${accidentType}'`;
 
         const imgCap = await hf.textToImage({
           inputs: sentence,
@@ -195,6 +205,25 @@ export async function GET() {
         const blob: BlobResponse = await put(fileName, buff, {
           access: "public",
         });
+
+
+        const imgclas = await hf.imageToText({
+          data: imgCap,
+          model: "nlpconnect/vit-gpt2-image-captioning",
+        });
+        if (!userId) {
+          return new NextResponse('Unauthorized', { status: 401 })
+        }
+
+
+    await db.insert(accidentAd).values({
+      userId: userId,
+      defaultId: DEFAULT_ID.toString(),
+      sentence: sentence,
+      url: blob.url,
+      imgdescribe: imgclas.generated_text,
+      
+    }).returning();
 
         return NextResponse.json({ sentence, blob });
       } catch (error) {

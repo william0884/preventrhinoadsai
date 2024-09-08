@@ -1,0 +1,1 @@
+ALTER TABLE "accidentId" ADD COLUMN "userId" text NOT NULL;

@@ -37,13 +37,13 @@ export default function HomePage() {
             disabled={loading}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
           >
-            {loading ? 'Loading...' : 'Get Random Accident'}
+            {loading ? 'Loading. Please hold...' : 'Generate Accident Ad'}
           </button>
           {error && <p className="text-red-500">{error}</p>}
           {accident && (
             <div className="flex flex-col items-center gap-4 w-full max-w-2xl">
-              <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-60 w-full text-black text-sm">
-                {JSON.stringify(accident, null, 2)}
+              <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-80 w-full text-black text-sm whitespace-pre-wrap">
+                {accident.sentence}
               </pre>
               <img
                 src={accident.blob.url}
