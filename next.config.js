@@ -20,9 +20,6 @@ const config = {
     functions: {
         maxDuration: 60,
       },
-      experimental: {
-        runtime: 'experimental-edge',
-      },
 };
 
 export default config;
