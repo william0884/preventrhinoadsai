@@ -1,5 +1,5 @@
 // src/app/api/fetch-data/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import { accidentAd } from "../../../server/db/schema";
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql);
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const { userId } = auth();
     if (!userId) {
@@ -28,6 +28,6 @@ export async function GET(req: NextRequest) {
       }
   });
   } catch (err) {
-    return new NextResponse("Failed discoto fetch data", { status: 500 });
+    return new NextResponse("Failed to fetch data", { status: 500 });
   }
 }

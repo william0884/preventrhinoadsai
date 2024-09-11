@@ -4,29 +4,36 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { FaDownload, FaShareAlt } from 'react-icons/fa';
+import type { ImageItem } from '../../../types/image';
+import Image from 'next/image';
 
 const ImagePage = () => {
   const { id } = useParams();
-  const [item, setItem] = useState<any>(null);
+  const [item, setItem] = useState<ImageItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await fetch(`/api/fetch-data/${id}`);
+        const response = await fetch(`/api/fetch-data/${id as string}`);
         if (!response.ok) throw new Error('Failed to fetch item');
-        const result = await response.json();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const result: ImageItem = await response.json();
         setItem(result);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching item:', err);
-        setError(err.message);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchItem();
+    fetchItem().catch(err => {
+      console.error('Error in fetchItem:', err);
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setLoading(false);
+    });
   }, [id]);
 
   const handleDownload = () => {
@@ -41,16 +48,14 @@ const ImagePage = () => {
   };
 
   const handleShare = () => {
-    if (item && item.url) {
-      if (navigator.share) {
-        navigator.share({
-          title: 'Check out this image!',
-          text: item.sentence,
-          url: window.location.href,
-        }).catch((error) => console.log('Error sharing', error));
-      } else {
-        alert('Web Share API is not supported in your browser. You can copy the URL manually.');
-      }
+    if (navigator.share && item?.url) {
+      navigator.share({
+        title: 'Check out this image!',
+        text: item.sentence,
+        url: window.location.href,
+      }).catch((error) => console.log('Error sharing', error));
+    } else {
+      alert('Web Share API is not supported in your browser. You can copy the URL manually.');
     }
   };
 
@@ -65,10 +70,13 @@ const ImagePage = () => {
       </Link>
       <h1 className="text-3xl font-bold mb-6">Image Details</h1>
       <div className="bg-white border rounded-lg shadow-md p-6">
-        <img
+        <Image
           src={item.url}
           alt={`Generated image for ID: ${item.id}`}
-          className="w-full mb-4 rounded-lg border border-gray-300"
+          width={500}
+          height={300}
+          layout="responsive"
+          className="mb-4 rounded-lg border border-gray-300"
         />
         <p className="mb-2"><strong>Sentence:</strong> {item.sentence}</p>
         <p className="mb-2"><strong>Image Description:</strong> {item.imgdescribe}</p>

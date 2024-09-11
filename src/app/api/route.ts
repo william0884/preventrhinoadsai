@@ -75,19 +75,11 @@ export interface Links {
 }
 
 export interface Result {
-  filters: {
-    _id: number;
+  result: {
+    records: VehicleRecord[];
+    // ... other properties
   };
-  include_total: boolean;
-  limit: number;
-  records_format: string;
-  resource_id: string;
-  total_estimation_threshold: null;
-  records: VehicleRecord[];
-  fields: Field[];
-  _links: Links;
-  total: number;
-  total_was_estimated: boolean;
+  // ... other properties
 }
 
 export interface VehicleRecord {
@@ -149,6 +141,10 @@ export async function GET() {
 
     if (data.success && data.result.records.length > 0) {
       const record = data.result.records[0];
+      if (!record) {
+        return NextResponse.json({ error: 'No accident record found' }, { status: 404 });
+      }
+
       const killed = parseInt(record.NO_PERSONS_KILLED ?? '0');
       let deathSentence = '';
       if (killed >= 1) {
@@ -170,7 +166,7 @@ export async function GET() {
         const CarData = await CarResponse.json() as Result;
         console.log('Car API response:', JSON.stringify(CarData, null, 2));
 
-        if (!CarData.result || !CarData.result.records || CarData.result.records.length === 0) {
+        if (!CarData.result?.records?.length) {
           console.error('No car records found in the response');
           return NextResponse.json({ error: 'No car data found' }, { status: 404 });
         }
