@@ -15,7 +15,11 @@ const config = {
               pathname: '/**',
             },
         ],
+    
     },
+    functions: {
+        maxDuration: 60, // Increase this value (in seconds)
+      },
 };
 
 export default config;
