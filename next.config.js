@@ -18,7 +18,10 @@ const config = {
     
     },
     functions: {
-        maxDuration: 60, // Increase this value (in seconds)
+        maxDuration: 60,
+      },
+      experimental: {
+        runtime: 'experimental-edge',
       },
 };
 

@@ -122,7 +122,7 @@ interface BlobResponse {
   contentDisposition?: string;
 }
 
-
+export const runtime = 'edge';
 const hf = new HfInference(process.env.HF_ACCESS_TOKEN);
 
 
