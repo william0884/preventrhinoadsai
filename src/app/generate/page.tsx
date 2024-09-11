@@ -1,8 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { ImageItem } from '../../types/image';
 import Image from 'next/image';
+
+export type ImageItem = {
+  id: string;
+  url: string;
+  sentence: string;
+  imgdescribe: string;
+  blob?: {
+      url?: string;
+  };
+};
+
 
 export default function HomePage() {
   const [accident, setAccident] = useState<ImageItem | null>(null);
