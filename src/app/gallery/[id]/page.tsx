@@ -4,8 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { FaDownload, FaShareAlt } from 'react-icons/fa';
-import type { ImageItem } from '../../../types/image';
 import Image from 'next/image';
+
+export type ImageItem = {
+  id: string;
+  url: string;
+  sentence: string;
+  imgdescribe: string;
+};
 
 const ImagePage = () => {
   const { id } = useParams();
@@ -37,7 +43,7 @@ const ImagePage = () => {
   }, [id]);
 
   const handleDownload = () => {
-    if (item && item.url) {
+    if (item?.url) {
       const link = document.createElement('a');
       link.href = item.url;
       link.download = `image-${item.id}.jpg`;
