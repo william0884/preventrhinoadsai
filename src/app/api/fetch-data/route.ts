@@ -28,6 +28,7 @@ export async function GET() {
       }
   });
   } catch (err) {
+    console.error(err); 
     return new NextResponse("Failed to fetch data", { status: 500 });
   }
 }
