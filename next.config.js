@@ -14,6 +14,12 @@ const config = {
               port: '',
               pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'preventrhinoadsai.s3.ap-southeast-2.amazonaws.com',
+                port: '',
+                pathname: '/**',
+            },
         ],
     
     },

@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 
 export default function HomePage() {
   const images = [
-    'https://dc907dsvybtiecmv.public.blob.vercel-storage.com/1725765896911-JaTWP9hjHYUw9MVG6hXd1Ft6HdD3P0.png?t=1725766144868',
+    'https://preventrhinoadsai.s3.ap-southeast-2.amazonaws.com/1728940503125.png?t=1728940543235&w=1080&q=75',
     // Add more image URLs here
-    'https://dc907dsvybtiecmv.public.blob.vercel-storage.com/1725764155441-UpFKtZmVSyBoMSr0TSsH5tElXRnNmI.png?t=1725767146173',
-    'https://dc907dsvybtiecmv.public.blob.vercel-storage.com/1725760530468-DGgwsqQJIIisqERPY9rpBQlcX1gYUj.png?t=1725767186386',
+    'https://preventrhinoadsai.s3.ap-southeast-2.amazonaws.com/1728940332830.png?t=1728940543235&w=1080&q=75',
+    'https://preventrhinoadsai.s3.ap-southeast-2.amazonaws.com/1728940540395.png?t=1728940543235&w=1080&q=75',
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { HfInference } from "@huggingface/inference";
-import { put } from "@vercel/blob";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { auth } from '@clerk/nextjs/server'
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
@@ -122,9 +122,15 @@ interface BlobResponse {
   contentDisposition?: string;
 }
 
-export const runtime = 'edge';
 const hf = new HfInference(process.env.HF_ACCESS_TOKEN);
 
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
 
 export async function GET() {
   const { userId } = auth()
@@ -198,10 +204,16 @@ export async function GET() {
 
         const fileName = `${Date.now()}.png`;
 
-        const blob: BlobResponse = await put(fileName, buff, {
-          access: "public",
-        });
+        const putObjectCommand = new PutObjectCommand({
+          Bucket: process.env.AWS_S3_BUCKET_NAME,
+          Key: fileName,
+          Body: buff,
+          ContentType: 'image/png',
+        });    
 
+        await s3Client.send(putObjectCommand);
+
+        const publicUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
 
         //const imgclas = await hf.imageToText({
         //  data: imgCap,
@@ -216,12 +228,12 @@ export async function GET() {
       userId: userId,
       defaultId: DEFAULT_ID.toString(),
       sentence: sentence,
-      url: blob.url,
+      url: publicUrl,
       imgdescribe: 'a ai generated image',
       
     }).returning();
 
-        return NextResponse.json({ sentence, blob });
+        return NextResponse.json({ sentence, publicUrl });
       } catch (error) {
         console.error('Error fetching car data:', error);
         return NextResponse.json({ error: 'Error fetching car data' }, { status: 500 });
